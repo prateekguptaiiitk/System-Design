@@ -18,17 +18,17 @@
 - Read/write ratio: Much higher reads than writes (possibly 100:1)
 
 **API Design** -
-- POST /shorten — Accepts long URL, returns new short URL. (optional slug)
-- GET /{short_url} — Redirects to long URL.
-- GET /analytics/{short_url} — Provides stats for the short URL.
+- ```POST /shorten``` - Accepts long URL, returns new short URL. (optional slug)
+- ```GET /{short_url}``` — Redirects to long URL.
+- ```GET /analytics/{short_url}``` — Provides stats for the short URL.
 
 **High Level Architecture** – 
-- Load Balancer: Directs traffic to multiple app servers.
-- App Servers: Process requests (shortening, redirection, analytics).
-- Database: Stores URL mappings (could be sharded).
-- Cache (e.g., Redis): Fast access to popular URLs.
-- Analytics Pipeline: Tracks clicks asynchronously to avoid bottlenecks.
-- Rate Limiter: Prevents spam/abuse
+- **Load Balancer:** Directs traffic to multiple app servers.
+- **App Servers:** Process requests (shortening, redirection, analytics).
+- **Database:** Stores URL mappings (could be sharded).
+- **Cache (e.g., Redis):** Fast access to popular URLs.
+- **Analytics Pipeline:** Tracks clicks asynchronously to avoid bottlenecks.
+- **Rate Limiter:** Prevents spam/abuse
 
 **Workflows (Step by Step)** –
 
