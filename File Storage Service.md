@@ -115,12 +115,12 @@ GET /files/{fileId}/changes -> FileMetadata[]
 - The CDN serves the file via a time-limited, secure presigned URL. Strategic use of CDN cache control and invalidation ensures only frequently accessed files are cached, optimizing both cost and performance.
 
 **Sharing Files** - 
-- Basic Approach: Each file’s metadata contains a sharelist — a list of user IDs who can access it. While easy to implement, it is inefficient for listing all files shared with a user since it requires scanning all files’ sharelist.
-- Improved Cached Mapping: 
-- Maintain an additional mapping of users to the files shared with them, such as a key-value cache:
+- **Basic Approach**: Each file’s metadata contains a sharelist — a list of user IDs who can access it. While easy to implement, it is inefficient for listing all files shared with a user since it requires scanning all files’ sharelist.
+- **Improved Cached Mapping**: 
+    - Maintain an additional mapping of users to the files shared with them, such as a key-value cache:
 user1: ["fileId1", "fileId2"]
-- This allows quick lookups but requires synchronizing both mappings (the file’s sharelist and the user's shared file list). A transaction-based update can keep these consistent.
-- Fully Normalized Table Approach: Create a dedicated SharedFiles table mapping userId to fileId:
+    - This allows quick lookups but requires synchronizing both mappings (the file’s sharelist and the user's shared file list). A transaction-based update can keep these consistent.
+- **Fully Normalized Table Approach**: Create a dedicated SharedFiles table mapping userId to fileId:
 ![Screenshot 2025-10-17 113208.png](https://assets.leetcode.com/users/images/71cd8b46-a662-4a6f-965f-77eeebc1be4a_1760680955.4569824.png)
 
 **Synchronizing Files** - 
